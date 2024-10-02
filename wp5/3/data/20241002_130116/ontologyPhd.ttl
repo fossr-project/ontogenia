@@ -1,0 +1,225 @@
+
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix cpannotationschema: <http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#> .
+@prefix : <http://www.ontologydesignpatterns.org/cp/owl/departmentestablishment.owl#> .
+
+<http://www.ontologydesignpatterns.org/cp/owl/departmentestablishment.owl>
+    rdf:type owl:Ontology ;
+    owl:versionInfo "1.0" ;
+    cpannotationschema:coversRequirements "Which departments were established in the year 2004?" ;
+    cpannotationschema:hasIntent "To represent departments and the year they were established." ;
+    cpannotationschema:scenarios "Querying for departments established in a specific year." .
+
+:Department rdf:type owl:Class ;
+    rdfs:label "Department" ;
+    rdfs:comment "A class representing a department within an organization." .
+
+:YearEstablished rdf:type owl:DatatypeProperty ;
+    rdfs:label "year established" ;
+    rdfs:domain :Department ;
+    rdfs:range xsd:gYear ;
+    rdfs:comment "The year a department was established." .
+
+:DepartmentEstablishedIn2004 rdf:type owl:Class ;
+    rdfs:label "Department Established in 2004" ;
+    rdfs:subClassOf :Department ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Department
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :YearEstablished ;
+              owl:hasValue "2004"^^xsd:gYear
+            ]
+        )
+    ] ;
+    rdfs:comment "A class representing departments that were established in the year 2004." .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://www.ontologydesignpatterns.org/cp/owl/departmentestablishment.owl#> .
+
+<http://www.ontologydesignpatterns.org/cp/owl/departmentestablishment.owl>
+    rdf:type owl:Ontology ;
+    owl:versionInfo "1.0" ;
+    rdfs:comment "An ontology to represent departments and the year they were established, including the ability to count unique departments." .
+
+:Department rdf:type owl:Class ;
+    rdfs:label "Department" ;
+    rdfs:comment "A class representing a department within an organization." .
+
+:YearEstablished rdf:type owl:DatatypeProperty ;
+    rdfs:label "year established" ;
+    rdfs:domain :Department ;
+    rdfs:range xsd:gYear ;
+    rdfs:comment "The year a department was established." .
+
+:DepartmentEstablishedIn2004 rdf:type owl:Class ;
+    rdfs:label "Department Established in 2004" ;
+    rdfs:subClassOf :Department ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Department
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :YearEstablished ;
+              owl:hasValue "2004"^^xsd:gYear
+            ]
+        )
+    ] ;
+    rdfs:comment "A class representing departments that were established in the year 2004." .
+
+:UniqueDepartment rdf:type owl:Class ;
+    rdfs:label "Unique Department" ;
+    rdfs:comment "A class representing a unique department within the dataset." .
+
+:hasUniqueDepartment rdf:type owl:ObjectProperty ;
+    rdfs:label "has unique department" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :UniqueDepartment ;
+    rdfs:comment "An object property to associate an entity with a unique department." .
+
+:countOfUniqueDepartments rdf:type owl:DatatypeProperty ;
+    rdfs:label "count of unique departments" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:comment "A datatype property to represent the count of unique departments." .
+
+:Dataset rdf:type owl:Class ;
+    rdfs:label "Dataset" ;
+    rdfs:comment "A class representing a dataset that contains departments." .
+
+:hasDepartment rdf:type owl:ObjectProperty ;
+    rdfs:label "has department" ;
+    rdfs:domain :Dataset ;
+    rdfs:range :Department ;
+    rdfs:comment "An object property to associate a dataset with its departments." .
+
+:DatasetWithUniqueDepartments rdf:type owl:Class ;
+    rdfs:label "Dataset with Unique Departments" ;
+    rdfs:subClassOf :Dataset ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Dataset
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasUniqueDepartment ;
+              owl:minCardinality "1"^^xsd:nonNegativeInteger
+            ]
+        )
+    ] ;
+    rdfs:comment "A class representing a dataset that contains unique departments." .
+
+### Reasoning and Confidence Evaluation
+
+# The ontology is designed to answer the competency question "How many unique departments are listed in the dataset?".
+# The class :UniqueDepartment is introduced to represent unique departments.
+# The object property :hasUniqueDepartment is used to associate an entity with a unique department.
+# The datatype property :countOfUniqueDepartments is used to represent the count of unique departments.
+# The class :DatasetWithUniqueDepartments is defined as a subclass of :Dataset that must have at least one unique department.
+# The ontology can be tested by creating instances of :Dataset with associated :Department instances and querying for the count of unique departments.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://www.ontologydesignpatterns.org/cp/owl/departmentestablishment.owl#> .
+
+<http://www.ontologydesignpatterns.org/cp/owl/departmentestablishment.owl>
+    rdf:type owl:Ontology ;
+    owl:versionInfo "1.0" ;
+    rdfs:comment "An ontology to represent departments, their establishment years, and the range of years covered by the dataset." .
+
+:Department rdf:type owl:Class ;
+    rdfs:label "Department" ;
+    rdfs:comment "A class representing a department within an organization." .
+
+:YearEstablished rdf:type owl:DatatypeProperty ;
+    rdfs:label "year established" ;
+    rdfs:domain :Department ;
+    rdfs:range xsd:gYear ;
+    rdfs:comment "The year a department was established." .
+
+:DepartmentEstablishedIn2004 rdf:type owl:Class ;
+    rdfs:label "Department Established in 2004" ;
+    rdfs:subClassOf :Department ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Department
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :YearEstablished ;
+              owl:hasValue "2004"^^xsd:gYear
+            ]
+        )
+    ] ;
+    rdfs:comment "A class representing departments that were established in the year 2004." .
+
+:UniqueDepartment rdf:type owl:Class ;
+    rdfs:label "Unique Department" ;
+    rdfs:comment "A class representing a unique department within the dataset." .
+
+:hasUniqueDepartment rdf:type owl:ObjectProperty ;
+    rdfs:label "has unique department" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :UniqueDepartment ;
+    rdfs:comment "An object property to associate an entity with a unique department." .
+
+:countOfUniqueDepartments rdf:type owl:DatatypeProperty ;
+    rdfs:label "count of unique departments" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:comment "A datatype property to represent the count of unique departments." .
+
+:Dataset rdf:type owl:Class ;
+    rdfs:label "Dataset" ;
+    rdfs:comment "A class representing a dataset that contains departments." .
+
+:hasDepartment rdf:type owl:ObjectProperty ;
+    rdfs:label "has department" ;
+    rdfs:domain :Dataset ;
+    rdfs:range :Department ;
+    rdfs:comment "An object property to associate a dataset with its departments." .
+
+:DatasetWithUniqueDepartments rdf:type owl:Class ;
+    rdfs:label "Dataset with Unique Departments" ;
+    rdfs:subClassOf :Dataset ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Dataset
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasUniqueDepartment ;
+              owl:minCardinality "1"^^xsd:nonNegativeInteger
+            ]
+        )
+    ] ;
+    rdfs:comment "A class representing a dataset that contains unique departments." .
+
+:YearRange rdf:type owl:Class ;
+    rdfs:label "Year Range" ;
+    rdfs:comment "A class representing a range of years covered by the dataset." .
+
+:hasYearRange rdf:type owl:ObjectProperty ;
+    rdfs:label "has year range" ;
+    rdfs:domain :Dataset ;
+    rdfs:range :YearRange ;
+    rdfs:comment "An object property to associate a dataset with a range of years it covers." .
+
+:earliestYear rdf:type owl:DatatypeProperty ;
+    rdfs:label "earliest year" ;
+    rdfs:domain :YearRange ;
+    rdfs:range xsd:gYear ;
+    rdfs:comment "The earliest year in the range of years covered by the dataset." .
+
+:latestYear rdf:type owl:DatatypeProperty ;
+    rdfs:label "latest year" ;
+    rdfs:domain :YearRange ;
+    rdfs:range xsd:gYear ;
+    rdfs:comment "The latest year in the range of years covered by the dataset." .
