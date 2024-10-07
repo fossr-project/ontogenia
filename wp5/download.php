@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Verifica e riceve il campo field
     $file = isset($_GET['file']) ? $_GET['file'] : '';
 }
-echo $file;
+
 
 // Verifica se il file esiste
 if (file_exists($file)) {

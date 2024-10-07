@@ -17,13 +17,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifica e riceve il campo field
     $field = isset($_POST['field']) ? $_POST['field'] : '';
     $nameFile = isset($_POST['namefile']) ? $_POST['namefile'] : '';
-    $nameFile=$nameFile.'.owl';
-    $path='./data/'.date('Ymd_His')."/";
+    $nameFile=$nameFile.'.ttl';
+    $pathDown='/data/'.date('Ymd_His')."/";
+    $path='./'.$pathDown;
     if (!is_dir($path)) {
         mkdir($path, 0777, true);
     } else {
         $path='./data/';
     }
+    $nameFileDown="./3".$pathDown.$nameFile;
     $nameFile=$path.$nameFile;
     
     
@@ -84,11 +86,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <form action="../download.php" method="get">
-<input type="hidden" name="file" value="<?php echo $nameFile; ?>">
-<button type="submit">Download OWL</button></form>
+<input type="hidden" name="file" value="<?php echo $nameFileDown; ?>">
+<button type="submit">Download ttl</button></form>
+<div class="w-separator size_large"></div>
+<a href="https://service.tib.eu/webvowl/"><button type="submit">View Graph</button></a>
+
 
 <a href="../../home.html"><button type="submit">Home</button></a>
-<div class="w-separator size_large"></div><div class="wpb_text_column"><div class="wpb_wrapper"> </div></div><div class="w-post-elm post_content" itemprop="text">
+
+<div class="wpb_text_column"><div class="wpb_wrapper"> </div></div><div class="w-post-elm post_content" itemprop="text">
 </div></div></div></div></div></section>
 
 </body>

@@ -1,0 +1,434 @@
+
+
+```ttl
+@prefix : <http://www.semanticweb.org/ontologies/PhDStudentsOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix agentrole: <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#> .
+@prefix aquaticresources: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/aquaticresources.owl#> .
+@prefix climaticzone: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/climaticzone.owl#> .
+@prefix collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#> .
+@prefix partof: <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#> .
+@prefix linnaeantaxonomy: <http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#> .
+@prefix specieseat: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/specieseat.owl#> .
+
+<http://www.semanticweb.org/ontologies/PhDStudentsOntology>
+    rdf:type owl:Ontology ;
+    owl:imports agentrole: ;
+    owl:imports aquaticresources: ;
+    owl:imports climaticzone: ;
+    owl:imports collectionentity: ;
+    owl:imports partof: ;
+    owl:imports linnaeantaxonomy: ;
+    owl:imports specieseat: .
+
+### Classes
+
+:Department rdf:type owl:Class ;
+    rdfs:subClassOf agentrole:Agent .
+
+:PhDStudent rdf:type owl:Class ;
+    rdfs:subClassOf agentrole:Agent .
+
+:StartYear rdf:type owl:Class ;
+    rdfs:subClassOf xsd:gYear .
+
+### Object Properties
+
+:hasDepartment rdf:type owl:ObjectProperty ;
+    rdfs:domain :PhDStudent ;
+    rdfs:range :Department .
+
+:hasStartYear rdf:type owl:ObjectProperty ;
+    rdfs:domain :PhDStudent ;
+    rdfs:range :StartYear .
+
+### Individuals
+
+:StartYear2015 rdf:type :StartYear ;
+    owl:hasValue "2015"^^xsd:gYear .
+
+### Restrictions
+
+:PhDStudent2015 rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :PhDStudent
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasStartYear ;
+              owl:hasValue "2015"^^xsd:gYear
+            ]
+        )
+    ] .
+
+:DepartmentWithPhDStudentsFrom2015 rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Department
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasDepartment ;
+              owl:someValuesFrom :PhDStudent2015
+            ]
+        )
+    ] .
+```
+
+```ttl
+@prefix : <http://www.semanticweb.org/ontologies/PhDStudentsOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix agentrole: <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#> .
+@prefix aquaticresources: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/aquaticresources.owl#> .
+@prefix climaticzone: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/climaticzone.owl#> .
+@prefix collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#> .
+@prefix partof: <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#> .
+@prefix linnaeantaxonomy: <http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#> .
+@prefix specieseat: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/specieseat.owl#> .
+
+<http://www.semanticweb.org/ontologies/PhDStudentsOntology>
+    rdf:type owl:Ontology ;
+    owl:imports agentrole: ;
+    owl:imports aquaticresources: ;
+    owl:imports climaticzone: ;
+    owl:imports collectionentity: ;
+    owl:imports partof: ;
+    owl:imports linnaeantaxonomy: ;
+    owl:imports specieseat: .
+
+### Classes
+
+:RecentPhDStudent rdf:type owl:Class ;
+    rdfs:subClassOf :PhDStudent .
+
+### Object Properties
+
+:hasRecentPhDStudent rdf:type owl:ObjectProperty ;
+    rdfs:domain :Department ;
+    rdfs:range :RecentPhDStudent .
+
+### Data Properties
+
+:hasEnrollmentYear rdf:type owl:DatatypeProperty ;
+    rdfs:domain :PhDStudent ;
+    rdfs:range xsd:gYear .
+
+### Restrictions
+
+:RecentPhDStudent owl:equivalentClass [
+    rdf:type owl:Class ;
+    owl:intersectionOf (
+        :PhDStudent
+        [ rdf:type owl:Restriction ;
+          owl:onProperty :hasEnrollmentYear ;
+          owl:minInclusive "2018"^^xsd:gYear ;
+          owl:maxInclusive "2023"^^xsd:gYear
+        ]
+    )
+] .
+
+:DepartmentWithRecentPhDStudents rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Department
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasRecentPhDStudent ;
+              owl:someValuesFrom :RecentPhDStudent
+            ]
+        )
+    ] .
+```
+
+```ttl
+@prefix : <http://www.semanticweb.org/ontologies/PhDStudentsOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix agentrole: <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#> .
+@prefix aquaticresources: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/aquaticresources.owl#> .
+@prefix climaticzone: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/climaticzone.owl#> .
+@prefix collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#> .
+@prefix partof: <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#> .
+@prefix linnaeantaxonomy: <http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#> .
+@prefix specieseat: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/specieseat.owl#> .
+
+<http://www.semanticweb.org/ontologies/PhDStudentsOntology>
+    rdf:type owl:Ontology ;
+    owl:imports agentrole: ;
+    owl:imports aquaticresources: ;
+    owl:imports climaticzone: ;
+    owl:imports collectionentity: ;
+    owl:imports partof: ;
+    owl:imports linnaeantaxonomy: ;
+    owl:imports specieseat: .
+
+### Classes
+
+:Year rdf:type owl:Class ;
+    rdfs:subClassOf xsd:gYear .
+
+### Object Properties
+
+:hasEnrollmentYear rdf:type owl:ObjectProperty ;
+    rdfs:domain :PhDStudent ;
+    rdfs:range :Year .
+
+### Data Properties
+
+:hasYear rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Year ;
+    rdfs:range xsd:gYear .
+
+### Restrictions
+
+:PhDStudentByYear rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :PhDStudent
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasEnrollmentYear ;
+              owl:someValuesFrom :Year
+            ]
+        )
+    ] .
+
+:YearRange rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Year
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasYear ;
+              owl:minInclusive "2000"^^xsd:gYear ;
+              owl:maxInclusive "2023"^^xsd:gYear
+            ]
+        )
+    ] .
+
+### Individuals
+
+:Year2000 rdf:type :Year ;
+    owl:hasValue "2000"^^xsd:gYear .
+
+:Year2023 rdf:type :Year ;
+    owl:hasValue "2023"^^xsd:gYear .
+
+### Explanation of the Ontology Design
+
+# The ontology is designed to answer the competency question:
+# "What is the range of years in which the dataset of PhD students spans?"
+# To answer this, we have defined a class :Year which is a subclass of xsd:gYear.
+# We have an object property :hasEnrollmentYear that connects a :PhDStudent to a :Year.
+# We also have a data property :hasYear that specifies the actual year value for a :Year instance.
+# The class :PhDStudentByYear is defined to include all PhD students with an enrollment year.
+# The class :YearRange is defined to include all years within the range of 2000 to 2023, which is the span of the dataset.
+# Individuals :Year2000 and :Year2023 are created to represent the start and end of the range, respectively.
+```
+
+```ttl
+@prefix : <http://www.semanticweb.org/ontologies/PhDStudentsOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix agentrole: <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#> .
+@prefix collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#> .
+
+<http://www.semanticweb.org/ontologies/PhDStudentsOntology>
+    rdf:type owl:Ontology ;
+    owl:imports agentrole: ;
+    owl:imports collectionentity: .
+
+### Classes
+
+:DepartmentWithoutPhDStudents rdf:type owl:Class ;
+    rdfs:subClassOf :Department ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:complementOf [
+            rdf:type owl:Class ;
+            owl:intersectionOf (
+                :Department
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasMember ;
+                  owl:someValuesFrom :PhDStudent
+                ]
+            )
+        ]
+    ] .
+
+### Object Properties
+
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Department ;
+    rdfs:range :PhDStudent .
+
+### Restrictions
+
+:Department rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            agentrole:Agent
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasMember ;
+              owl:someValuesFrom :PhDStudent
+            ]
+        )
+    ] .
+
+### Explanation of the Ontology Design
+
+# The ontology is designed to answer the competency question:
+# "Are there any departments that are listed without any PhD students?"
+# To answer this, we have defined a class :DepartmentWithoutPhDStudents which is a subclass of :Department.
+# This class is equivalent to the complement of the intersection of :Department and a restriction that states
+# a department has some PhD student as a member. This means that :DepartmentWithoutPhDStudents includes all departments
+# that do not have any PhD student members.
+```
+
+```ttl
+@prefix : <http://www.semanticweb.org/ontologies/PhDStudentsOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix agentrole: <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#> .
+@prefix collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#> .
+
+<http://www.semanticweb.org/ontologies/PhDStudentsOntology>
+    rdf:type owl:Ontology ;
+    owl:imports agentrole: ;
+    owl:imports collectionentity: .
+
+### Classes
+
+:Department rdf:type owl:Class ;
+    rdfs:subClassOf agentrole:Agent .
+
+:PhDStudent rdf:type owl:Class ;
+    rdfs:subClassOf agentrole:Agent .
+
+### Object Properties
+
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Department ;
+    rdfs:range :PhDStudent .
+
+### Restrictions
+
+:DepartmentWithoutPhDStudents rdf:type owl:Class ;
+    rdfs:subClassOf :Department ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:complementOf [
+            rdf:type owl:Class ;
+            owl:intersectionOf (
+                :Department
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty :hasMember ;
+                  owl:someValuesFrom :PhDStudent
+                ]
+            )
+        ]
+    ] .
+```
+
+```ttl
+@prefix : <http://www.semanticweb.org/ontologies/PhDStudentsOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix agentrole: <http://www.ontologydesignpatterns.org/cp/owl/agentrole.owl#> .
+@prefix collectionentity: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#> .
+
+<http://www.semanticweb.org/ontologies/PhDStudentsOntology>
+    rdf:type owl:Ontology ;
+    owl:imports agentrole: ;
+    owl:imports collectionentity: .
+
+### Classes
+
+:PhDStudent rdf:type owl:Class ;
+    rdfs:subClassOf agentrole:Agent .
+
+:Year rdf:type owl:Class ;
+    rdfs:subClassOf xsd:gYear .
+
+:Enrollment rdf:type owl:Class ;
+    rdfs:subClassOf collectionentity:Collection .
+
+### Object Properties
+
+:hasEnrollmentYear rdf:type owl:ObjectProperty ;
+    rdfs:domain :PhDStudent ;
+    rdfs:range :Year .
+
+:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:domain :Enrollment ;
+    rdfs:range :PhDStudent .
+
+### Data Properties
+
+:hasYear rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Year ;
+    rdfs:range xsd:gYear .
+
+### Restrictions
+
+:EnrollmentByYear rdf:type owl:Class ;
+    owl:equivalentClass [
+        rdf:type owl:Class ;
+        owl:intersectionOf (
+            :Enrollment
+            [ rdf:type owl:Restriction ;
+              owl:onProperty :hasMember ;
+              owl:someValuesFrom [
+                  rdf:type owl:Class ;
+                  owl:intersectionOf (
+                      :PhDStudent
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasEnrollmentYear ;
+                        owl:someValuesFrom :Year
+                      ]
+                  )
+              ]
+            ]
+        )
+    ] .
+
+### Individuals
+
+:Year2000 rdf:type :Year ;
+    owl:hasValue "2000"^^xsd:gYear .
+
+:Year2023 rdf:type :Year ;
+    owl:hasValue "2023"^^xsd:gYear .
+
+### Explanation of the Ontology Design
+
+# The ontology is designed to answer the competency question:
+# "Can we find a trend in the number of PhD students starting their studies each year?"
+# To answer this, we have defined a class :Year which is a subclass of xsd:gYear.
+# We have an object property :hasEnrollmentYear that connects a :PhDStudent to a :Year.
+# We also have a data property :hasYear that specifies the actual year value for a :Year instance.
+# The class :EnrollmentByYear is defined to include all enrollments with at least one PhD student
+# who has an enrollment year. This allows us to count the number of enrollments per year and
+# analyze trends over time.
+# Individuals :Year2000 and :Year2023 are created to represent the start and end of the range, respectively.
+```

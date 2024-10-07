@@ -7,7 +7,6 @@ from datetime import datetime
 
 #logging.basicConfig(filename='ontology_design.log', level=logging.INFO)
 
-
 def read_procedure(file_path):
     with open(file_path, 'r') as file:
         return file.read()
@@ -15,9 +14,11 @@ def read_procedure(file_path):
 # Function to read CQs from a CSV file and optionally split them into groups
 def read_and_split_CQs(file_path, split_into_groups=False):
     data = pd.read_csv(file_path)
+    #data = pd.read_csv(file_path, sep=';')
     # Filter for CQs starting with 'awo_'
-    awo_CQs = data[data['ID'].str.startswith('awo_')]['CQ'].tolist()
-
+    print(data.columns)
+    awo_CQs = data[data['CQID'].str.startswith('CQID')]['CQ'].tolist()
+    print(awo_CQs)
     if split_into_groups:
         # Splitting into 4 groups, adjust the logic as needed
         group_size = len(awo_CQs) // 4
@@ -27,7 +28,7 @@ def read_and_split_CQs(file_path, split_into_groups=False):
 
 def generate_prompt(CQs, procedure="", combined_patterns="", previous_output=""):
     return (
-        f"Read the following instructions: '{procedure}'. Basing on the procedure, and following the previous output: '{previous_output}',  design an ontology that comprehensively answers the following competency questions: '{CQs}', using the following ontology design patterns: {combined_patterns}. Do not repeat classes, object properties, data properties, restrictions, etc. if they have been addressed in the previous output. When you're done send me only the whole ontology you've designed in OWL format, without any comment outside the OWL."
+        f"Read the following instructions: '{procedure}'. Basing on the procedure, and following the previous output: '{previous_output}',  design an ontology that comprehensively answers the following competency questions: '{CQs}', using the following ontology design patterns: {combined_patterns}. Do not repeat classes, object properties, data properties, restrictions, etc. if they have been addressed in the previous output. When you're done send me only the whole ontology you've designed in ttl format, without any comment outside the ttl."
     )
 
 def design_ontology(prompt):
@@ -52,7 +53,7 @@ def inizio(CQs, procedure=None, combined_patterns=None, iteration=1, output_file
     previous_output = ""  # Reset previous output for each trial
 
     # Determine if CQs are specific to awo
-    is_awo_CQs = 'awo' in CQs[0][0]
+    #is_awo_CQs = 'awo' in CQs[0][0]
 
     for group_number, CQs_group in enumerate(CQs, start=1):
         prompt = generate_prompt(CQs_group, procedure if procedure else "", combined_patterns if combined_patterns else "", previous_output)
@@ -94,7 +95,7 @@ combined_pattern_str = '. '.join([f"{row['Name']}: {row['Pattern_owl']}" for _, 
 
     # Reading and splitting the CQs
 #pathData=path+"/"+sys.argv[1]
-CQs=read_and_split_CQs(nomeFileIn,split_into_groups=True)
+CQs=read_and_split_CQs(nomeFileIn,split_into_groups=False)
 #CQs = read_and_split_CQs('data/'+var[1]+'.csv', split_into_groups=True)
 
 iteration = 1 #ricorda di cambiare
@@ -103,130 +104,4 @@ inizio(CQs,procedure_content,combined_pattern_str,iteration, nomeFileOut, path)
 
 
 
-
-
-#import sys
-#print("Python Path:", sys.executable)
-#import os
-#import glob
-#import numpy as n
-#print("Content-Type: text/plain\n")
-#print("Python executable:", sys.executable)
-#print("Python version:", sys.version)
-#print("Environment PATH:", os.environ['PATH'])
-#print("Sys Path:", sys.path)
-#def print_hi(name,username):
-    # Use a breakpoint in the code line below to debug your script.
-    #print(f'Hi, {username}')  # Press ⌘F8 to toggle the breakpoint.
- #   results_dir = 'results-sin'
-  #  if not os.path.exists(results_dir):
-   #     os.makedirs(results_dir)
-  #  # Get all CSV files starting with 'results' in the current directory
- #   csv_files = glob.glob(name)
-    #return csv_files
-    #for csv_file in csv_files:
-     #   df_reload = pd.read_csv(csv_file) # panda il llm
-        #trovaSinonimi(df_reload['cq'])#prendo le cqs
-    #return csv_files#df_reload
-
-#var=[]
-#if len(sys.argv)>0:
- #   for i in range(1,len(sys.argv)):
-  #      var.append(sys.argv[i])
-
-#risultato="hello word " +str(var)
-#print(risultato)
-
-#print("Pandas Version:", pd.__version__)
-#print(print_hi(var[1],var[0]))
-
-
-
-
-
-#import MySQLdb
-
-
-
-#try:
-    #cnx = MySQLdb.connect(user='root', password='',
-                          #host='localhost',
-                          #database='immobiliare')
-    #cursor = cnx.cursor()
-    #print('Connessione stabilita')
-   
-    #cursor.execute("SELECT IDzona,Descrizione FROM zone")
-    #risultato = cursor.fetchall()
-
-
-#except MySQLdb.Error as err:
-       #print("Errore:", err)
-
-#finally:
-    
-    #if 'cnx' in locals() or 'cnx' in globals():
-     #   cnx.close()
-
-        
-        
-
-#
-#
-#import spacy
-
-#def synonym_antonym_extractor(phrase):
- #   from nltk.corpus import wordnet
- #   synonyms = []
-#    for syn in wordnet.synsets(phrase):
- #       for l in syn.lemmas():
-  #          synonyms.append(l.name())
-   # return(synonyms)
-
-#def synonym_antonym_extractor(word):
-  #  synonyms = []
-#    for l in word:
- #       synonyms.append(l.name())
-  #  return(synonyms)
-
-
-
-
-
-#def trovaSinonimi(cqs):
-#    #dfTot = pd.DataFrame({"Sentence":[] , "Structure":[] })
- #   dfTokenTot=pd.DataFrame(columns=['Word','Type'])
-#    nlp = spacy.load('en_core_web_md',disable=['ner','textcat'])
- #   id=0
-  #  for e in cqs:
-   #     # create spacy
-    #    print("frase ",e)
-     #   doc = nlp(e)
- #       pos = ""
-  #      l=[]
-   #     for token in doc:
-    #       # print("ciao ",type(token))
-     #      # pos += token.pos_ + " "
-    #       # l=e.split()
-    #        #s=""
-    #       # for i in l:
-    #            #if i in token:
-    #            #    print(i)
-    #              #  s=i
-     #       #print ([token, token.pos_])
-    #        #dfTok = pd.DataFrame([[token, token.pos_]], columns=['Word', 'Type'])
-    #        dfTokenTot.loc[id] = [token.text.lower(), token.pos_]
-    #        id+=1
-    #gbTokNoum=pd.DataFrame(dfTokenTot[dfTokenTot["Type"]=='NOUN'],columns=#['Word'])
-    #gbTokNoum1=gbTokNoum.groupby('Word').size().reset_index(name='Size')
-    #print("le  ", gbTokNoum1)
-    #wordlessUsed=pd.DataFrame(gbTokNoum1[gbTokNoum1["Size"]<=2],columns=['Word'])
-    #wordlessUsed=wordlessUsed.
-
-
-#    for w in wordlessUsed:
- #       print ("ciao",w)
-
-
-  #  # display occurrences of a particular column
-   # print(occur)
 

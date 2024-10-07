@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $field = isset($_POST['field']) ? $_POST['field'] : '';
     $nameFile = isset($_POST['namefile']) ? $_POST['namefile'] : '';
     $nameFile=$nameFile.'.csv';
-    $path='./data/'.date('Ymd_His')."/";
+    $pathDown='/data/'.date('Ymd_His')."/";
+    $path='./'.$pathDown;
     $llms=isset($_POST['llm']) ? $_POST['llm'] : '';
     $abstract=isset($_POST['abstract']) ? $_POST['abstract'] : '';
     
@@ -27,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $path='./data/';
     }
+    
+    $nameFileDown="./2".$pathDown.$nameFile;
     $nameFile=$path.$nameFile;
     
     
@@ -74,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $llms;
     echo $abstract;
    echo implode("\n", $output);
+
   #if ($output == 0){
    # echo "<form action="download.php" method="get">";
     #echo "<input type="hidden" name="$nameFile" value="tuo_file.owl">";
@@ -89,13 +93,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <form action="../download.php" method="get">
-<input type="hidden" name="file" value="<?php echo $nameFile;?>">
-<button type="submit">Download dataset</button></form>
-<a href="../3/1Onto.html"><button type="submit">Next step</button></a>
-<div class="w-separator size_large"></div><div class="wpb_text_column"><div class="wpb_wrapper"> 
-<a href="../../home.html"><button type="submit">Home</button></a>
-<div class="w-separator size_large"></div><div class="wpb_text_column"><div class="wpb_wrapper"> </div></div><div class="w-post-elm post_content" itemprop="text">
-             </div></div></div></div></div></div></div>
+<input type="hidden" name="file" value="<?php echo $nameFileDown;?>">
+<button type="submit">Download cqs</button></form>
+<div class="w-separator size_large"></div>
+<div class="wpb_text_column">
+<div class="wpb_wrapper">
+<div class="wpb_text_column">
+    <a href="../3/1Onto.html"><button type="submit">Next step</button></a> </div>
+    <div class="wpb_text_column">
+    <a href="../../home.html"><button type="submit">Home</button></a>
+    <div class="wpb_wrapper"> </div></div>
+    <div class="w-post-elm post_content" itemprop="text">
+             </div></div>
+             </div></div></div></div></div>
              </section>
          </main>
     </div>

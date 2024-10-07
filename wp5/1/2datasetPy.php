@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $field = isset($_POST['field']) ? $_POST['field'] : '';
     $nameFile = isset($_POST['namefile']) ? $_POST['namefile'] : '';
     $nameFile=$nameFile.'.csv';
-    $path='./data/'.date('Ymd_His')."/";
+    $pathDown='/data/'.date('Ymd_His')."/";
+    $path='./'.$pathDown;
     $llms=isset($_POST['llm']) ? $_POST['llm'] : '';
     
     if (!is_dir($path)) {
@@ -26,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $path='./data/';
     }
+    $nameFileDown="./1".$pathDown.$nameFile;
     $nameFile=$path.$nameFile;
     
     
@@ -87,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <form action="../download.php" method="get">
-<input type="hidden" name="file" value="<?php echo $nameFile;?>">
+<input type="hidden" name="file" value="<?php echo $nameFileDown;?>">
 <button type="submit">Download dataset</button></form>
 
              <a href="../2/1CQs.html"><button type="submit">Next step</button></a>
