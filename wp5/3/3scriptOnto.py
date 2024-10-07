@@ -5,6 +5,7 @@ import openai
 from datetime import datetime
 
 
+
 #logging.basicConfig(filename='ontology_design.log', level=logging.INFO)
 
 def read_procedure(file_path):

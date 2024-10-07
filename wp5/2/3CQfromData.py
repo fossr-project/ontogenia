@@ -13,6 +13,7 @@ import json
 import re
 import ast
 
+
 # Parte 1: genera cqs da un dataset
 
 def function_parte1(dataset_info_new, topic, abstract):

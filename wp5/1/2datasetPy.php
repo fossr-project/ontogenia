@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <?php include '../head.html'; ?>
+
 <body class="post-template-default single single-post postid-9577 single-format-standard l-body Impreza_8.23.2 us-core_8.23.2 headerinpos_top wpb-js-composer js-comp-ver-7.6 vc_responsive header_hor disable_effects state_tablets" itemscope="" itemtype="https://schema.org/WebPage">
      <div class="l-canvas type_wide">
          <main id="page-content" class="l-main" itemprop="mainContentOfPage">
@@ -63,17 +64,85 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mostra un messaggio di conferma o errore
     
     echo "<h1>Result</h1>";
+ 
    
+if ($llms=="1")
+{
+    $file1 = './data/ChatGPT/dataset_sample_originale.csv';
+    $file2 = './data/ChatGPT/prova32.csv';
+    $separatorefile1=",";
+}
+    else
+    {
+        $file1 = './data/llama/dataset_sample_originale.csv';
+        $file2 = './data/llama/dataset_dottori_sample.csv';
+        $separatorefile1=";";
+    }
+        
+
+    if ((($handle1 = fopen($file1, 'r')) !== FALSE)&&(($handle2 = fopen($file2, 'r')) !== FALSE)) {
+        echo "<div class='table-container'>";
+        echo "<table><thead>"; // Inizia la tabella HTML
+        // (Opzionale) Leggi l'intestazione se il file CSV ha un'intestazione
+        //echo "sono qui=";
+        
+        if (($header1 = fgetcsv($handle1, 1000, $separatorefile1)) !== FALSE) {
+            echo "<tr>"; // Inizia una nuova riga per l'intestazione
+            foreach ($header1 as $colonna1) {
+                echo "<th>" . htmlspecialchars($colonna1) . "</th>"; // Crea le celle di intestazione
+            }
+            echo "</tr>";
+            
+        }
+        if (($header2 = fgetcsv($handle2, 1000, ";")) !== FALSE) {
+                   echo "<tr>"; // Inizia una nuova riga per l'intestazione
+                   foreach ($header2 as $colonna2) {
+                       echo "<th>" . htmlspecialchars($colonna2) . "</th>"; // Crea le celle di intestazione
+                   }
+                   echo "</tr></thead>";
+               }
+        
+        echo "<tbody>";
+        // Ciclo per leggere ogni riga del CSV
+        while ((($data1 = fgetcsv($handle1, 1000, $separatorefile1)) !== FALSE) && (($data2 = fgetcsv($handle2, 1000, ";")) !== FALSE)){
+            
+            echo "<tr>"; // Inizia una nuova riga della tabella
+            foreach ($data1 as $campo1) {
+                echo "<td>" . htmlspecialchars($campo1) . "</td>"; // Crea le celle della tabella
+            }
+            echo "</tr>";
+
+            echo "<tr>"; // Inizia una nuova riga della tabella
+            foreach ($data2 as $campo2) {
+                echo "<td>" . htmlspecialchars($campo2) . "</td>"; // Crea le celle della tabella
+            }
+            echo "</tr>";
+        }
+        echo "</tbody></table></div>";
+       
+        fclose($handle1); // Chiudi il file
+        fclose($handle2);
+        
+        
+        //      fclose($handle2); // Chiudi il file
+        
+    //}
+    }else {
+        echo "Errore nell'aprire il file CSV.";
+    
+    }
+    
+    
 
    # $comando="python3 ./script.py " . escapeshellarg($username) . " " . escapeshellarg($dest_path) ;
-    $command=escapeshellcmd("/usr/local/bin/python3 3import_llama.py " . escapeshellarg($field) . " " . escapeshellarg($dest_path) . " " .escapeshellarg($nameFile) . " " .escapeshellarg($path)." " .escapeshellarg($llms));
+   # $command=escapeshellcmd("/usr/local/bin/python3 3import_llama.py " . escapeshellarg($field) . " " . escapeshellarg($dest_path) . " " .escapeshellarg($nameFile) . " " .escapeshellarg($path)." " .escapeshellarg($llms));
     
-   $output = [];
-   $return_var = -1;
+  # $output = [];
+   #$return_var = -1;
 
-   exec($command, $output, $return_var);
-    echo $llms;
-   echo implode("\n", $output);
+   #exec($command, $output, $return_var);
+ #   echo $llms;
+  # echo implode("\n", $output);
   #if ($output == 0){
    # echo "<form action="download.php" method="get">";
     #echo "<input type="hidden" name="$nameFile" value="tuo_file.owl">";
@@ -84,8 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
     
 
-} else {
-    echo 'Metodo di richiesta non supportato.';
 }
 ?>
 <form action="../download.php" method="get">

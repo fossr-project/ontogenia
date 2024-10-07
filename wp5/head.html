@@ -1,4 +1,45 @@
-  <head>  	
+  <head>  
+          <style>
+        /* Contenitore della tabella con scroll */
+        .table-container {
+            width: 100%;         /* Larghezza massima */
+            height: 400px;        /* Altezza fissa */
+            overflow: auto;       /* Attiva lo scroll orizzontale e verticale */
+            border: 1px solid #ccc; /* Bordo per evidenziare la tabella */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+        <style>
+        /* Clessidra/Loader semplice */
+        #loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid blue;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            display: none; /* Inizialmente nascosto */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
     <meta charset="UTF-8">  				
     <script data-cmp-ab="2" async="" src="https://cs.iubenda.com/cookie-solution/confs/js/82695132.js" data-cmp-info="2"></script><script data-cmp-ab="2" src="https://cdn.iubenda.com/cookie_solution/iubenda_cs/1.64.2/core-it.js" charset="UTF-8" data-cmp-info="2"></script><script type="text/javascript" class="_iub_cs_skip" data-cmp-info="13" data-cmp-ab="1">
 				var _iub = _iub || {};

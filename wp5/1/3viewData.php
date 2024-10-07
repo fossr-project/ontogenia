@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <?php include '../head.html'; ?>
+
 <body class="post-template-default single single-post postid-9577 single-format-standard l-body Impreza_8.23.2 us-core_8.23.2 headerinpos_top wpb-js-composer js-comp-ver-7.6 vc_responsive header_hor disable_effects state_tablets" itemscope="" itemtype="https://schema.org/WebPage">
      <div class="l-canvas type_wide">
          <main id="page-content" class="l-main" itemprop="mainContentOfPage">
@@ -17,15 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifica e riceve il campo field
     $field = isset($_POST['field']) ? $_POST['field'] : '';
     $nameFile = isset($_POST['namefile']) ? $_POST['namefile'] : '';
-    $nameFile=$nameFile.'.ttl';
+    $nameFile=$nameFile.'.csv';
     $pathDown='/data/'.date('Ymd_His')."/";
     $path='./'.$pathDown;
+    $llms=isset($_POST['llm']) ? $_POST['llm'] : '';
+    
     if (!is_dir($path)) {
         mkdir($path, 0777, true);
     } else {
         $path='./data/';
     }
-    $nameFileDown="./3".$pathDown.$nameFile;
+    $nameFileDown="./1".$pathDown.$nameFile;
     $nameFile=$path.$nameFile;
     
     
@@ -50,26 +53,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Sposta il file nella directory di destinazione
         if (move_uploaded_file($fileTmpPath, $dest_path)) {
-            $message = 'Il file è stato caricato con successo.';
+            $message = 'File is uploded.';
         } else {
-            $message = 'C\'è stato un errore durante il caricamento del file. Assicurati che la directory di destinazione esista e sia scrivibile.';
+            $message = 'Error during the uploded. Directory must be writeble.';
         }
     } else {
-        $message = 'Non è stato caricato nessun file o si è verificato un errore nel caricamento.';
+        $message = 'It is not uploaded the file. It is an error during the upload.';
     }
 
     // Mostra un messaggio di conferma o errore
     
-    echo "<h1>Risultato del caricamento</h1>";
+    echo "<h1>Result</h1>";
    
 
    # $comando="python3 ./script.py " . escapeshellarg($username) . " " . escapeshellarg($dest_path) ;
-    $command=escapeshellcmd("/usr/local/bin/python3 3scriptOnto.py " . escapeshellarg($field) . " " . escapeshellarg($dest_path) . " " .escapeshellarg($nameFile) . " " .escapeshellarg($path));
+    $command=escapeshellcmd("/usr/local/bin/python3 3import_llama.py " . escapeshellarg($field) . " " . escapeshellarg($dest_path) . " " .escapeshellarg($nameFile) . " " .escapeshellarg($path)." " .escapeshellarg($llms));
     
    $output = [];
    $return_var = -1;
 
    exec($command, $output, $return_var);
+    echo $llms;
    echo implode("\n", $output);
   #if ($output == 0){
    # echo "<form action="download.php" method="get">";
@@ -85,17 +89,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo 'Metodo di richiesta non supportato.';
 }
 ?>
-<!--form action="../download.php" method="get">
-<input type="hidden" name="file" value="<?php echo $nameFileDown; ?>">
-<button type="submit">Download ttl</button></form-->
-<div class="w-separator size_large"></div>
-<a href="https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/hacid-project/knowledge-graph/refs/heads/main/ontologies/ccso/ccso.owl"><button type="submit">View Graph</button></a>
+<form action="../download.php" method="get">
+<input type="hidden" name="file" value="<?php echo $nameFileDown;?>">
+<button type="submit">Download dataset</button></form>
 
-
+             <a href="../2/1CQs.html"><button type="submit">Next step</button></a>
+             <div class="w-separator size_large"></div>
+             
 <a href="../../home.html"><button type="submit">Home</button></a>
-
-<div class="wpb_text_column"><div class="wpb_wrapper"> </div></div><div class="w-post-elm post_content" itemprop="text">
-</div></div></div></div></div></section>
-
+<div class="w-separator size_large"></div>
+             
+             </div><div class="wpb_text_column"><div class="wpb_wrapper">
+</div></div><div class="w-post-elm post_content" itemprop="text">
+    </div></div></div></div>
+             </section>
+         </main>
+    </div>
 </body>
 </html>

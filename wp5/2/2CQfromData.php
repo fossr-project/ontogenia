@@ -68,15 +68,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
 
    # $comando="python3 ./script.py " . escapeshellarg($username) . " " . escapeshellarg($dest_path) ;
-    $command=escapeshellcmd("/usr/local/bin/python3 3CQfromData.py " . escapeshellarg($field) . " " . escapeshellarg($dest_path) . " " .escapeshellarg($nameFile) . " " .escapeshellarg($path)." " .escapeshellarg($llms). " " .escapeshellarg($abstract));
+   // $command=escapeshellcmd("/usr/local/bin/python3 3CQfromData.py " . escapeshellarg($field) . " " . escapeshellarg($dest_path) . " " .escapeshellarg($nameFile) . " " .escapeshellarg($path)." " .escapeshellarg($llms). " " .escapeshellarg($abstract));
     
-   $output = [];
-   $return_var = -1;
+//   $output = [];
+  // $return_var = -1;
 
-   exec($command, $output, $return_var);
-    echo $llms;
-    echo $abstract;
-   echo implode("\n", $output);
+ //  exec($command, $output, $return_var);
+   // echo $llms;
+   // echo $abstract;
+  // echo implode("\n", $output);
 
   #if ($output == 0){
    # echo "<form action="download.php" method="get">";
@@ -86,26 +86,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   #  }
         
    
+    ####versione statica
+    if ($llms=="1")
+    {
+        $file1 = './data/ChatGPT/provaphd.csv';
+       // $file2 = './data/ChatGPT/prova32.csv';
+        $separatorefile1=",";
+    }
+        else
+        {
+            $file1 = './data/llama/dataSet.csv';
+           // $file2 = './data/llama/dataset_dottori_sample.csv';
+            $separatorefile1=";";
+        }
+            
+
+    if (($handle1 = fopen($file1, 'r')) !== FALSE) {
+        echo "<div class='table-container'>";
+        echo "<table><thead>"; // Inizia la tabella HTML
+        // (Opzionale) Leggi l'intestazione se il file CSV ha un'intestazione
+        //echo "sono qui=";
+        
+        if (($header1 = fgetcsv($handle1, 1000, $separatorefile1)) !== FALSE) {
+            echo "<tr>"; // Inizia una nuova riga per l'intestazione
+            foreach ($header1 as $colonna1) {
+                echo "<th>" . htmlspecialchars($colonna1) . "</th>"; // Crea le celle di intestazione
+            }
+            echo "</tr>";
+            
+        }
+    
+           
+           echo "</thead>";
+            echo "<tbody>";
+        
+            // Ciclo per leggere ogni riga del CSV
+            while (($data1 = fgetcsv($handle1, 1000, $separatorefile1)) !== FALSE) {
+
+                echo "<tr>"; // Inizia una nuova riga della tabella
+                foreach ($data1 as $campo1) {
+                    echo "<td>" . htmlspecialchars($campo1) . "</td>"; // Crea le celle della tabella
+                }
+                  
+                echo "</tr>";
+  
+            }
+                   
+            echo "</tbody></table></div>";
+           
+            fclose($handle1); // Chiudi il file
+
+        }/*
+                   else {
+            echo "Errore nell'aprire il file CSV.";
+        
+        }
+    */
+    ######fine versione statica
+    
     
 
 } else {
     echo 'Metodo di richiesta non supportato.';
 }
 ?>
-<form action="../download.php" method="get">
+<!--form action="../download.php" method="get">
 <input type="hidden" name="file" value="<?php echo $nameFileDown;?>">
-<button type="submit">Download cqs</button></form>
+<button type="submit">Download cqs</button></form-->
 <div class="w-separator size_large"></div>
-<div class="wpb_text_column">
 <div class="wpb_wrapper">
-<div class="wpb_text_column">
     <a href="../3/1Onto.html"><button type="submit">Next step</button></a> </div>
-    <div class="wpb_text_column">
-    <a href="../../home.html"><button type="submit">Home</button></a>
-    <div class="wpb_wrapper"> </div></div>
+    <a href="../../home.html"><button type="submit">Home</button></a></div>
+    <div class="wpb_wrapper"> </div>
     <div class="w-post-elm post_content" itemprop="text">
-             </div></div>
-             </div></div></div></div></div>
+             </div>
+             </div></div></div></div>
              </section>
          </main>
     </div>

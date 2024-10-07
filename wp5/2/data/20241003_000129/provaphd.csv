@@ -1,7 +1,0 @@
-CQID,CQ
-CQID1,Which departments have PhD students who started their studies in 2004?
-CQID2,How many PhD students started their studies in a given year?
-CQID3,What is the range of years in which the dataset contains information about PhD students?
-CQID4,"Are there any departments that are listed with different naming conventions (e.g., case sensitivity, abbreviations)?"
-CQID5,Which departments do not have any associated PhD students in the dataset?
-CQID6,Can we find a trend in the number of PhD students over the years based on the available data?
