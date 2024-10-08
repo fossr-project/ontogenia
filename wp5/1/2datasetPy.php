@@ -78,9 +78,10 @@ if ($llms=="1")
         $file2 = './data/llama/dataset_dottori_sample.csv';
         $separatorefile1=";";
     }
-        
+     
+    echo "<h3>Original dataset</h3>";
 
-    if ((($handle1 = fopen($file1, 'r')) !== FALSE)&&(($handle2 = fopen($file2, 'r')) !== FALSE)) {
+    if (($handle1 = fopen($file1, 'r')) !== FALSE) {
         echo "<div class='table-container'>";
         echo "<table><thead>"; // Inizia la tabella HTML
         // (Opzionale) Leggi l'intestazione se il file CSV ha un'intestazione
@@ -94,33 +95,51 @@ if ($llms=="1")
             echo "</tr>";
             
         }
-        if (($header2 = fgetcsv($handle2, 1000, ";")) !== FALSE) {
-                   echo "<tr>"; // Inizia una nuova riga per l'intestazione
-                   foreach ($header2 as $colonna2) {
-                       echo "<th>" . htmlspecialchars($colonna2) . "</th>"; // Crea le celle di intestazione
-                   }
-                   echo "</tr></thead>";
-               }
         
         echo "<tbody>";
         // Ciclo per leggere ogni riga del CSV
-        while ((($data1 = fgetcsv($handle1, 1000, $separatorefile1)) !== FALSE) && (($data2 = fgetcsv($handle2, 1000, ";")) !== FALSE)){
+        while (($data1 = fgetcsv($handle1, 1000, $separatorefile1)) !== FALSE){
             
             echo "<tr>"; // Inizia una nuova riga della tabella
             foreach ($data1 as $campo1) {
-                echo "<td>" . htmlspecialchars($campo1) . "</td>"; // Crea le celle della tabella
+                echo "<td><div style='width:100%; max-height:100px; overflow:auto'>" . htmlspecialchars($campo1) . "</div></td>"; // Crea le celle della tabella
             }
             echo "</tr>";
 
-            echo "<tr>"; // Inizia una nuova riga della tabella
+        }
+        echo "</tbody></table></div>";
+       
+        fclose($handle1); // Chiudi il file
+    }
+    
+    echo "<h3>Cleansed dataset</h3>";
+        
+    if (($handle2 = fopen($file2, 'r')) !== FALSE) {
+        echo "<div class='table-container'>";
+        echo "<table><thead>"; // Inizia la tabella HTML
+        // (Opzionale) Leggi l'intestazione se il file CSV ha un'intestazione
+        //echo "sono qui=";
+        
+		if (($header2 = fgetcsv($handle2, 1000, ";")) !== FALSE) {
+			echo "<tr>"; // Inizia una nuova riga per l'intestazione
+            foreach ($header2 as $colonna2) {
+            	echo "<th>" . htmlspecialchars($colonna2) . "</th>"; // Crea le celle di intestazione
+            }
+            echo "</tr></thead>";
+        }
+        
+        echo "<tbody>";
+        // Ciclo per leggere ogni riga del CSV
+        while (($data2 = fgetcsv($handle2, 1000, ";")) !== FALSE){
+            
+            echo "<tr style='width:100%; max-height:100px; overflow:auto'>"; // Inizia una nuova riga della tabella
             foreach ($data2 as $campo2) {
                 echo "<td>" . htmlspecialchars($campo2) . "</td>"; // Crea le celle della tabella
             }
             echo "</tr>";
         }
         echo "</tbody></table></div>";
-       
-        fclose($handle1); // Chiudi il file
+        
         fclose($handle2);
         
         

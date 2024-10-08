@@ -157,10 +157,10 @@ var ajax_sib_front_object = {"ajax_url":"https:\/\/www.fossr.eu\/wp-admin\/admin
 
                 
     <form action="2datasetPy.php" method="post"         enctype="multipart/form-data">
-        <label for="field">Field</label>
+        <label for="field">Main topic of the dataset (e.g. fishery, scientometrics, climate change, etc.)</label>
         <input type="text" id="field" name="field" required><br><br>
-        <label for="namefile">Name file containing new dataset</label>
-        <input type="text" id="namefile" name="namefile" required><br><br>
+        <!-- label for="namefile">Name file containing new dataset</label !-->
+        <input type="hidden" id="namefile" name="namefile" value="newdaset.csv" required><br><br>
         <label for="file">Dataset file:</label>
         <input type="file" id="file" name="file" required><br><br>
           <p>Please select your LLM:</p>
