@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mostra un messaggio di conferma o errore
     
-    echo "<h1>Risultato del caricamento</h1>";
+    echo "<h1>Resulting ontology</h1>";
    
 
    # $comando="python3 ./script.py " . escapeshellarg($username) . " " . escapeshellarg($dest_path) ;
@@ -89,7 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <input type="hidden" name="file" value="<?php echo $nameFileDown; ?>">
 <button type="submit">Download ttl</button></form-->
 <div class="w-separator size_large"></div>
-<a href="https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/hacid-project/knowledge-graph/refs/heads/main/ontologies/ccso/ccso.owl"><button type="submit">View Graph</button></a>
+
+<iframe src="https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/hacid-project/knowledge-graph/refs/heads/main/ontologies/ccso/ccso.owl" title="Resulting ontology" style="width: 100%; min-height: 800px"></iframe>
+<a href="#"><button type="submit">Generate mapping rules to populate the KG</button></a -->
 
 
 <a href="../../home.html"><button type="submit">Home</button></a>

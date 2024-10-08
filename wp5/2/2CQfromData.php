@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mostra un messaggio di conferma o errore
     
-    echo "<h1>Result</h1>";
+    echo "<h1>Generated Competency Questions</h1>";
    
 
    # $comando="python3 ./script.py " . escapeshellarg($username) . " " . escapeshellarg($dest_path) ;
@@ -154,8 +154,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <input type="hidden" name="file" value="<?php echo $nameFileDown;?>">
 <button type="submit">Download cqs</button></form-->
 <div class="w-separator size_large"></div>
+<div style="margin-bottom:30px;">
+	Please select your LLM:<br/>
+	<input type="radio" id="1" name="llm" value="1">
+	<label for="1">ChatGpt</label><br>
+	<input type="radio" id="2" name="llm" value="2">
+	<label for="2">Llama3</label><br>
+</div>
 <div class="wpb_wrapper">
-    <a href="../3/1Onto.html"><button type="submit">Next step</button></a> </div>
+	<form action="../3/2script.php" method="POST">
+		<button type="submit">Generate ontology</button></post> </div>
+<br/>
+<div class="wpb_wrapper">
     <a href="../../home.html"><button type="submit">Home</button></a></div>
     <div class="wpb_wrapper"> </div>
     <div class="w-post-elm post_content" itemprop="text">
@@ -164,6 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              </section>
          </main>
     </div>
+
 
 </body>
 </html>

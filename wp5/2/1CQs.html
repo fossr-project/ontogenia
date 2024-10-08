@@ -130,7 +130,11 @@ var ajax_sib_front_object = {"ajax_url":"https:\/\/www.fossr.eu\/wp-admin\/admin
           
             <h1 class="w-post-elm post_title us_custom_b2b82e72 has_text_color entry-title color_link_inherit">Ontogenia</h1>
             <div class="w-separator size_large"></div><div class="wpb_text_column"><div class="wpb_wrapper"> </div></div><div class="w-post-elm post_content" itemprop="text">
-    
+    	<h3>Competency question generation</h3>
+    	<p><b>
+    	Competency questions (CQs) are user-oriented interrogatives that allow us to scope our dataset. <br/>
+    	In other words, they are questions that our users would want to gain answers for, through exploring and querying the dataset as a knowledge base.
+    	</b></p>
                 
 <form action="../download.php" method="get">
 <input type="hidden" name="file" value="./esempio/dataSet.csv">
@@ -138,21 +142,21 @@ var ajax_sib_front_object = {"ajax_url":"https:\/\/www.fossr.eu\/wp-admin\/admin
                 
                 
     <form action="2CQfromData.php" method="post"         enctype="multipart/form-data">
-        <label for="field">Topic</label>
+        <!-- label for="field">Topic</label>
         <input type="text" id="field" name="field" required><br><br>
         <label for="namefile">Output file containing CQs</label>
-        <input type="text" id="namefile" name="namefile" required><br>
+        <input type="text" id="namefile" name="namefile" required><br -->
         <label for="namefile">Dataset abstract</label>
         <textarea id="abstract" name="abstract" rows= 10 required></textarea>
-        <br>
+        <!-- br>
         <label for="file">Dataset file:</label>
-        <input type="file" id="file" name="file" required><br><br>
+        <input type="file" id="file" name="file" required><br><br -->
           <p>Please select your LLM:</p>
         <input type="radio" id="1" name="llm" value="1">
         <label for="1">ChatGpt</label><br>
         <input type="radio" id="2" name="llm" value="2">
         <label for="2">Llama3</label><br>
-        <input type="submit" value="GO" name="GO">
+        <input type="submit" value="Genarate CQs" name="GO">
     </form>
     </div></div></div></div></div>
             </section>
