@@ -177,8 +177,8 @@ if ($llms=="1")
 <form action="../download.php" method="get">
 <input type="hidden" name="file" value="<?php echo $nameFileDown;?>">
 <button type="submit">Download dataset</button></form>
-
-             <a href="../2/1CQs.html"><button type="submit">Next step</button></a>
+<div class="w-separator size_large"></div>
+             <a href="../2/1CQs.html"><button type="submit">Generate Competency Questions</button></a>
              <div class="w-separator size_large"></div>
              
 <a href="../../home.html"><button type="submit">Home</button></a>
