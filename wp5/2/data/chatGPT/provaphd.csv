@@ -1,7 +1,11 @@
-CQID,CQ
-CQID1,Which departments have PhD students who started their studies in 2004?
-CQID2,How many PhD students started their studies in a given year?
-CQID3,What is the range of years in which the dataset contains information about PhD students?
-CQID4,"Are there any departments that are listed with different naming conventions (e.g., case sensitivity, abbreviations)?"
-CQID5,Which departments do not have any associated PhD students in the dataset?
-CQID6,Can we find a trend in the number of PhD students over the years based on the available data?
+ID,CQ
+CQ1,What is the year of the doctoral thesis?
+CQ2,What is the language of the PhD thesis?
+CQ3,What is the title of the PhD thesis?
+CQ4,Who is the author of the PhD thesis?
+CQ5,Who are the contributors (supervisors and tutors) of the PhD thesis?
+CQ6,What is the PhD cycle (academic year) of the PhD courses?
+CQ7,What is the scientific disciplinary code of the thesis subject?
+CQ8,What is the abstract of the PhD thesis?
+CQ9,Which universities contributed to the PhD thesis?
+CQ10,In which department did the PhD student take their thesis?
