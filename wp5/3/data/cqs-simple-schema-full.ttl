@@ -47,12 +47,6 @@
     rdfs:domain :PhDThesis ;
     rdfs:range :Person .
 
-:hasContributor a rdf:Property ;
-    rdfs:label "has contributor" ;
-    rdfs:comment "The contributors (supervisors and tutors) of the PhD thesis." ;
-    rdfs:domain :PhDThesis ;
-    rdfs:range :Person .
-
 :hasAcademicYear a rdf:Property ;
     rdfs:label "has academic year" ;
     rdfs:comment "The PhD cycle (academic year) of the PhD courses." ;
@@ -86,5 +80,17 @@
 :hasStudent a rdf:Property ;
     rdfs:label "has student" ;
     rdfs:comment "A given PhD course has students, which are people." ;
+    rdfs:domain :PhDCourse ;
+    rdfs:range :People .
+
+:hasSupervisor a rdf:Property ;
+    rdfs:label "has student" ;
+    rdfs:comment "A given PhD thesis is supervised by some person." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range :People .
+
+:hasCoordinator a rdf:Property ;
+    rdfs:label "has student" ;
+    rdfs:comment "A given PhD Course is coordinated by some person." ;
     rdfs:domain :PhDCourse ;
     rdfs:range :People .
