@@ -76,7 +76,7 @@ if ($llms=="1")
     {
         $file1 = './data/llama/dataset_sample_originale.csv';
         $file2 = './data/llama/dataset_dottori_sample.csv';
-        $separatorefile1=";";
+        $separatorefile1=",";
     }
      
     echo "<h3>Original dataset</h3>";
