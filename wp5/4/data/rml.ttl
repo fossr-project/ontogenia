@@ -1,0 +1,147 @@
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix crml: <http://w3id.org/stlab/crml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix fossro: <http://w3id.org/fossr/ontology/> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix : <http://example.org/ontology#> .
+
+:PhDThesis
+    rml:logicalSource [
+        rml:source "dataset.csv" ;
+        rml:referenceFormulation ql:CSV ;
+        crml:separator ";"
+    ] ;
+
+    rr:subjectMap [
+        rr:template "http://w3id.org/fossr/resource/PhDThesis/{id}" ;
+        rr:class fossro:PhDThesis
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasYear ;
+        rr:objectMap [ rml:reference "year" ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasLanguage ;
+        rr:objectMap [ rml:reference "language" ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasTitle ;
+        rr:objectMap [ rml:reference "title" ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasAuthor ;
+        rr:objectMap [
+            rr:template "http://w3id.org/fossr/resource/Person/{author}" ;
+            rr:termType rr:IRI
+        ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasCoordinator ;
+        rr:objectMap [
+            rr:template "http://w3id.org/fossr/resource/Person/{coordinator}" ;
+            rr:termType rr:IRI 
+        ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasSupervisor ;
+        rr:objectMap [
+            rr:template "http://w3id.org/fossr/resource/Person/{tutor}" ;
+            rr:termType rr:IRI 
+        ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasAcademicYear ;
+        rr:objectMap [ rml:reference "phd_cycle" ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasScientificDisciplinaryCode ;
+        rr:objectMap [ 
+            rr:temp "ssd_class" ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:hasAbstract ;
+        rr:objectMap [ rml:reference "abstract" ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:contributedByUniversity ;
+        rr:objectMap [
+            rr:template "http://example.org/resource/University/{univ1}" ;
+            rr:class :University
+        ]
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:carriedOutAtDepartment ;
+        rr:objectMap [
+            rr:template "http://example.org/resource/Department/{department}" ;
+            rr:class :Department
+        ]
+    ] .
+
+
+:PhDStudent
+    rml:logicalSource [
+        rml:source "/Users/andrea/Documents/CNR/FOSSR/FOSSR days/Demo/dataset_dottori_sample.csv" ;
+        rml:referenceFormulation ql:CSV ;
+        crml:separator ";"
+    ] ;
+
+    rr:subjectMap [
+        rr:template "http://example.org/resource/Person/{author}" ;
+        rr:class fossro:Person
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:name ;
+        rr:objectMap [
+            rml:reference "author" 
+        ]
+    ] .
+
+:Coordinator
+    rml:logicalSource [
+        rml:source "/Users/andrea/Documents/CNR/FOSSR/FOSSR days/Demo/dataset_dottori_sample.csv" ;
+        rml:referenceFormulation ql:CSV ;
+        crml:separator ";"
+    ] ;
+
+    rr:subjectMap [
+        rr:template "http://example.org/resource/Person/{coordinator}" ;
+        rr:class fossro:Person
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:name ;
+        rr:objectMap [
+            rml:reference "coordinator" 
+        ]
+    ] .
+
+:Tutor
+    rml:logicalSource [
+        rml:source "/Users/andrea/Documents/CNR/FOSSR/FOSSR days/Demo/dataset_dottori_sample.csv" ;
+        rml:referenceFormulation ql:CSV ;
+        crml:separator ";"
+    ] ;
+
+    rr:subjectMap [
+        rr:template "http://example.org/resource/Person/{tutor}" ;
+        rr:class fossro:Person
+    ] ;
+
+    rr:predicateObjectMap [
+        rr:predicate fossro:name ;
+        rr:objectMap [
+            rml:reference "tutor" 
+        ]
+    ] .

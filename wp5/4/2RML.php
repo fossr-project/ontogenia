@@ -3,6 +3,14 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+</head>
 <?php include '../head.html'; ?>
 <body class="post-template-default single single-post postid-9577 single-format-standard l-body Impreza_8.23.2 us-core_8.23.2 headerinpos_top wpb-js-composer js-comp-ver-7.6 vc_responsive header_hor disable_effects state_tablets" itemscope="" itemtype="https://schema.org/WebPage">
      <div class="l-canvas type_wide">
@@ -14,87 +22,50 @@
 <?php
 #putenv('PATH=' . getenv('PATH') . ':/usr/local/bin');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verifica e riceve il campo field
-    $field = isset($_POST['field']) ? $_POST['field'] : '';
-    $nameFile = isset($_POST['namefile']) ? $_POST['namefile'] : '';
-    $nameFile=$nameFile.'.ttl';
-    $pathDown='/data/'.date('Ymd_His')."/";
-    $path='./'.$pathDown;
-    if (!is_dir($path)) {
-        mkdir($path, 0777, true);
-    } else {
-        $path='./data/';
-    }
-    $nameFileDown="./3".$pathDown.$nameFile;
-    $nameFile=$path.$nameFile;
-    
-    
-    
-    // Verifica e riceve il file caricato
-    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['file']['tmp_name'];
-        $fileName = $_FILES['file']['name'];
-        $fileSize = $_FILES['file']['size'];
-        $fileType = $_FILES['file']['type'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
 
-        // Imposta il percorso di destinazione del file
-        #$uploadFileDir = $path;
-        $dest_path = $path . $fileName;
-
-        // Creare la directory se non esiste
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
-        }
-
-        // Sposta il file nella directory di destinazione
-        if (move_uploaded_file($fileTmpPath, $dest_path)) {
-            $message = 'Il file è stato caricato con successo.';
-        } else {
-            $message = 'C\'è stato un errore durante il caricamento del file. Assicurati che la directory di destinazione esista e sia scrivibile.';
-        }
-    } else {
-        $message = 'Non è stato caricato nessun file o si è verificato un errore nel caricamento.';
-    }
 
     // Mostra un messaggio di conferma o errore
     
-    echo "<h1>Resulting ontology</h1>";
-   
-
-   # $comando="python3 ./script.py " . escapeshellarg($username) . " " . escapeshellarg($dest_path) ;
-    $command=escapeshellcmd("/usr/local/bin/python3 3scriptOnto.py " . escapeshellarg($field) . " " . escapeshellarg($dest_path) . " " .escapeshellarg($nameFile) . " " .escapeshellarg($path));
+    echo "<h1>Resulting RML rules</h1>";
     
-   $output = [];
-   $return_var = -1;
+    $file = './data/rml.ttl';
+    
+    
+    
+    if (($handle = fopen($file, 'r')) !== FALSE) {
+    
+        echo "<div class='table-container'>";
+    	
+        echo "<pre><code class='highlight highlight-source-turtle'>";
+    
+	    while (($line = fgets($handle)) !== FALSE){
+            
+            echo htmlspecialchars($line);
 
-   exec($command, $output, $return_var);
-   echo implode("\n", $output);
-  #if ($output == 0){
-   # echo "<form action="download.php" method="get">";
-    #echo "<input type="hidden" name="$nameFile" value="tuo_file.owl">";
-    #echo  "<button type="submit">Scarica il file OWL</button></form>";
-   
-  #  }
+        }
         
-   
+        echo "</code></pre>";
+        echo "</div>";
+        
+        fclose($handle); // Chiudi il file
+    
+    }
+    
+
     
 
 } else {
     echo 'Metodo di richiesta non supportato.';
 }
 ?>
+
 <!--form action="../download.php" method="get">
 <input type="hidden" name="file" value="<?php echo $nameFileDown; ?>">
 <button type="submit">Download ttl</button></form-->
-<div class="w-separator size_large"></div>
-
-<iframe src="https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/hacid-project/knowledge-graph/refs/heads/main/ontologies/ccso/ccso.owl" title="Resulting ontology" style="width: 100%; min-height: 800px"></iframe>
-
-<form action="../4/2RML.php" method="POST">
-<button type="submit">Generate mapping rules to populate the KG</button>
-</form>
+<br/> 
+	<form action="../5/RDF.php" method="POST">
+	<button type="submit">Execute mapping rules to populate the KG</button></a -->
+	</form>
 
 
 <a href="../../home.html"><button type="submit">Home</button></a>
