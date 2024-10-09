@@ -34,7 +34,7 @@
          <div class="vc_column-inner">
         
 
-<h1>Query RDF data with SPARQL</h1>
+<h1>Query the Rich Knowledge Graph</h1>
 
 
 <br/>
@@ -46,7 +46,7 @@
     
     Yasr.plugins.TableX.defaults.uriHrefAdapter = function(uri) {
 		if(uri.startsWith("http://w3id.org/fossr/resource/")) {
-			return "http://localhost:8080/lodview/" + uri.substring("http://w3id.org/fossr/resource/".length);
+			return "http://localhost:9090/lodview/" + uri.substring("http://w3id.org/fossr/resource/".length);
 		} else {
 			return uri;
 		}
@@ -54,7 +54,7 @@
     };
 
 	const yasgui = new Yasgui(document.getElementById("yasgui"), {
-							  requestConfig: { endpoint: "http://localhost:3030/ontogenia/sparql" },
+							  requestConfig: { endpoint: "http://localhost:3030/ontogenia-scopus/sparql" },
 							  copyEndpointOnNewTab: false,
 							  pluginOrder: ["TableX", "response"],
 							  defaultPlugin: "TableX"
@@ -63,10 +63,6 @@
 </script>
 
 <br/>
-<form action="./RichRDF.php" method="POST">
-	<button type="submit">Enrich data</button>
-</form>
-
 
 <a href="../../home.html"><button type="submit">Home</button></a>
 

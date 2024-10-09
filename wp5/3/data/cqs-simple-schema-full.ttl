@@ -1,0 +1,84 @@
+@prefix : <http://example.org/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Classes
+:PhDThesis a rdfs:Class ;
+    rdfs:label "PhD Thesis" ;
+    rdfs:comment "A document submitted in support of candidature for an academic degree presenting the author's research and findings." .
+
+:Person a rdfs:Class ;
+    rdfs:label "Person" ;
+    rdfs:comment "An individual who may be the author or a contributor to a PhD thesis." .
+
+:University a rdfs:Class ;
+    rdfs:label "University" ;
+    rdfs:comment "An institution of higher education and research, which contributes to PhD theses." .
+
+:Department a rdfs:Class ;
+    rdfs:label "Department" ;
+    rdfs:comment "A division of a university where the PhD student completes their thesis." .
+
+:PhDCourse a rdfs:Class ;
+    rdfs:label "PhD Course" ;
+    rdfs:comment "An academic program that includes the study and research contributing to a PhD thesis." .
+
+# Properties
+:hasYear a rdf:Property ;
+    rdfs:label "has year" ;
+    rdfs:comment "The year the doctoral thesis was completed." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range rdfs:Literal .
+
+:hasLanguage a rdf:Property ;
+    rdfs:label "has language" ;
+    rdfs:comment "The language in which the PhD thesis is written." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range rdfs:Literal .
+
+:hasTitle a rdf:Property ;
+    rdfs:label "has title" ;
+    rdfs:comment "The title of the PhD thesis." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range rdfs:Literal .
+
+:hasAuthor a rdf:Property ;
+    rdfs:label "has author" ;
+    rdfs:comment "The author of the PhD thesis." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range :Person .
+
+:hasContributor a rdf:Property ;
+    rdfs:label "has contributor" ;
+    rdfs:comment "The contributors (supervisors and tutors) of the PhD thesis." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range :Person .
+
+:hasAcademicYear a rdf:Property ;
+    rdfs:label "has academic year" ;
+    rdfs:comment "The PhD cycle (academic year) of the PhD courses." ;
+    rdfs:domain :PhDCourse ;
+    rdfs:range rdfs:Literal .
+
+:hasScientificDisciplinaryCode a rdf:Property ;
+    rdfs:label "has scientific disciplinary code" ;
+    rdfs:comment "The scientific disciplinary code of the thesis subject." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range rdfs:Literal .
+
+:hasAbstract a rdf:Property ;
+    rdfs:label "has abstract" ;
+    rdfs:comment "The abstract of the PhD thesis." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range rdfs:Literal .
+
+:contributedByUniversity a rdf:Property ;
+    rdfs:label "contributed by university" ;
+    rdfs:comment "Universities that contributed to the PhD thesis." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range :University .
+
+:carriedOutAtDepartment a rdf:Property ;
+    rdfs:label "carried out at department" ;
+    rdfs:comment "The department where the PhD student took their thesis." ;
+    rdfs:domain :PhDThesis ;
+    rdfs:range :Department .
