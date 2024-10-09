@@ -82,3 +82,9 @@
     rdfs:comment "The department where the PhD student took their thesis." ;
     rdfs:domain :PhDThesis ;
     rdfs:range :Department .
+
+:hasStudent a rdf:Property ;
+    rdfs:label "has student" ;
+    rdfs:comment "A given PhD course has students, which are people." ;
+    rdfs:domain :PhDCourse ;
+    rdfs:range :People .

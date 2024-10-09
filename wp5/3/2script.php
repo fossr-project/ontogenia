@@ -90,7 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <button type="submit">Download ttl</button></form-->
 <div class="w-separator size_large"></div>
 
-<iframe src="https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/hacid-project/knowledge-graph/refs/heads/main/ontologies/ccso/ccso.owl" title="Resulting ontology" style="width: 100%; min-height: 800px"></iframe>
+<!-- iframe src="https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/hacid-project/knowledge-graph/refs/heads/main/ontologies/ccso/ccso.owl" title="Resulting ontology" style="width: 100%; min-height: 800px"></iframe -->
+
+<iframe src="https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/fossr-project/ontogenia/refs/heads/main/wp5/3/data/cqs-simple-schema-full.ttl" title="Resulting ontology" style="width: 100%; min-height: 800px"></iframe>
 
 <form action="../4/2RML.php" method="POST">
 <button type="submit">Generate mapping rules to populate the KG</button>
