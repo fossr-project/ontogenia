@@ -98,7 +98,7 @@ if ($llms=="1")
         
         echo "<tbody>";
         // Ciclo per leggere ogni riga del CSV
-        while (($data1 = fgetcsv($handle1, 1000, $separatorefile1)) !== FALSE){
+        while (($data1 = fgetcsv($handle1, 5000, $separatorefile1)) !== FALSE){
             
             echo "<tr>"; // Inizia una nuova riga della tabella
             foreach ($data1 as $campo1) {
@@ -130,11 +130,11 @@ if ($llms=="1")
         
         echo "<tbody>";
         // Ciclo per leggere ogni riga del CSV
-        while (($data2 = fgetcsv($handle2, 1000, ";")) !== FALSE){
+        while (($data2 = fgetcsv($handle2, 6000, ";")) !== FALSE){
             
-            echo "<tr style='width:100%; max-height:100px; overflow:auto'>"; // Inizia una nuova riga della tabella
+            echo "<tr>"; // Inizia una nuova riga della tabella
             foreach ($data2 as $campo2) {
-                echo "<td>" . htmlspecialchars($campo2) . "</td>"; // Crea le celle della tabella
+                echo "<td><div style='width:100%; max-height:100px; overflow:auto'>" . htmlspecialchars($campo2) . "</div></td>"; // Crea le celle della tabella
             }
             echo "</tr>";
         }
